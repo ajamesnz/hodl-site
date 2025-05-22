@@ -820,8 +820,15 @@
        }
            /* Mobile: stack vertically and allow page scrolling */
 @media (max-width: 768px) {
+
+      html, body {
+    height:     auto !important;
+    overflow-y: auto !important;
+  }
   .contact-section {
     display: block;
+    position:      relative !important;
+    height:        auto !important;
     padding: 2rem 1rem;
   }
   .contact-content {
@@ -829,9 +836,17 @@
     flex-direction: column;
     gap: 1.5rem;
   }
+    
+  /* 4) If any form fields are capped, let them expand */
+  .contact-form,
+  .contact-form input,
+  .contact-form textarea {
+    max-height: none !important;
+    overflow:   visible !important;
+  }
 }
 
-
+    
         .contact-content {
             width: 80%;
             max-width: 1200px;
