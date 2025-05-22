@@ -808,16 +808,28 @@
             margin-bottom: 2rem;
         }
 
-        .contact-section {
-            background: #FFFFFF;
-            padding: 4rem 2rem;
-            flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            position: relative;
-            color: #000000;
-        }
+       .contact-section {
+  background: #FFFFFF;
+  padding: 4rem 2rem;
+  flex-grow: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  color: #000000;
+           /* Mobile: stack vertically and allow page scrolling */
+@media (max-width: 768px) {
+  .contact-section {
+    display: block;
+    padding: 2rem 1rem;
+  }
+  .contact-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+}
 
         .contact-content {
             width: 80%;
