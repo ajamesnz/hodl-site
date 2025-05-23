@@ -1265,10 +1265,44 @@
         .back-to-top:hover {
             background: rgba(0, 0, 0, 0.9);
         }
-    /* debug: should turn the whole contact section yellow on phones */
+   /* ─── mobile sticky form + full-screen modal ─── */
 @media only screen and (max-width: 768px) {
-  #contact { background: yellow !important; }
+  /* make the modal overlay scrollable & full height */
+  .modal,
+  .modal.active {
+    display: flex !important;
+    align-items: flex-start !important;
+    padding-top: 1rem !important;
+    overflow-y: auto !important;
+    background: rgba(0,0,0,0.5) !important;
+  }
+
+  /* pin the white panel full-screen and scroll its contents */
+  .modal-content {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 1rem !important;
+    border-radius: 0 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* keep “Submit” glued to the bottom for easy access */
+  .contact-form .submit-button {
+    position: sticky !important;
+    bottom: 0 !important;
+    width: calc(100% - 2rem) !important;
+    margin: 0.5rem auto !important;
+    z-index: 10 !important;
+  }
 }
+
 
     </style>
 </head>
