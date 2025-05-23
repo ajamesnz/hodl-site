@@ -163,3 +163,8 @@
     padding: 1rem !important;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  #contact { background: yellow !important; }
+}
+
