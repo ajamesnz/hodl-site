@@ -1912,4 +1912,19 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+    <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const backToTop = document.querySelector('.back-to-top');
+    if (!backToTop) return;
+    ['click','touchstart'].forEach(evt =>
+      backToTop.addEventListener(evt, e => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      })
+    );
+  });
+</script>
+</body>
+
+
 </body></html>
