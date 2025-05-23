@@ -1732,257 +1732,46 @@ portfolio management. We specialize in:</p>
 
 
     <button class="back-to-top">↑</button>
-    <script>
-        const banner = document.querySelector('.banner');
-        const navbarContainer = document.querySelector('.navbar-container');
-        const sliderContainer = document.querySelector('.slider-container');
-        const parallaxSections = document.querySelectorAll('.what-we-offer, .about, .dubai-based');
-
-        window.addEventListener('scroll', () => {
-            const scrollPosition = window.scrollY;
-
-            const isBannerHidden = scrollPosition > 0;
-            banner.classList.toggle('hidden', isBannerHidden);
-            navbarContainer.style.top = isBannerHidden ? '0' : 'var(--banner-height)';
-
-            navbarContainer.classList.toggle('solid', scrollPosition > 50);
-
-            sliderContainer.style.backgroundPositionY = `${scrollPosition * 0.3}px`;
-
-            parallaxSections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
-                if (scrollPosition > sectionTop - window.innerHeight && scrollPosition < sectionTop + sectionHeight) {
-                    const offset = (scrollPosition - sectionTop) * 0.2;
-                    section.style.backgroundPositionY = `${offset}px`;
-                }
-            });
-
-            const backToTop = document.querySelector('.back-to-top');
-            backToTop.classList.toggle('visible', window.scrollY > 300);
-        });
-
-        const slidesContainer = document.querySelector('.slider-container .slides');
-        const dots = document.querySelectorAll('.navigation .nav-dot');
-        const leftArrow = document.querySelector('.nav-left');
-        const rightArrow = document.querySelector('.nav-right');
-        let currentSlide = 0;
-        const totalSlides = 3;
-        let autoSlideInterval;
-
-        function updateSlider() {
-            slidesContainer.style.transform = `translateX(-${currentSlide * 33.33}%)`;
-            dots.forEach((dot, index) => dot.classList.toggle('active', index === currentSlide));
-        }
-
-        function startAutoSlide() {
-            clearInterval(autoSlideInterval);
-            autoSlideInterval = setInterval(() => {
-                currentSlide = (currentSlide + 1) % totalSlides;
-                updateSlider();
-            }, 6000);
-        }
-
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentSlide = index;
-                updateSlider();
-                startAutoSlide();
-            });
-        });
-
-        leftArrow.addEventListener('click', () => {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateSlider();
-            startAutoSlide();
-        });
-
-        rightArrow.addEventListener('click', () => {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateSlider();
-            startAutoSlide();
-        });
-
-        slidesContainer.classList.add('loaded');
-        startAutoSlide();
-
-        const bitcoinSlides = document.querySelector('.bitcoin-smart-choice .slides');
-        const bitcoinRects = document.querySelectorAll('.bitcoin-smart-choice .navigation .nav-rect');
-        const bitcoinLeftArrow = document.querySelector('.bitcoin-smart-choice .nav-left');
-        const bitcoinRightArrow = document.querySelector('.bitcoin-smart-choice .nav-right');
-        let bitcoinCurrentSlide = 0;
-        const bitcoinTotalSlides = 5;
-        let bitcoinAutoSlideInterval;
-
-        function updateBitcoinSlider() {
-            bitcoinSlides.style.transform = `translateX(-${bitcoinCurrentSlide * 20}%)`;
-            bitcoinRects.forEach((rect, index) => rect.classList.toggle('active', index === bitcoinCurrentSlide));
-        }
-
-        function startBitcoinAutoSlide() {
-            clearInterval(bitcoinAutoSlideInterval);
-            bitcoinAutoSlideInterval = setInterval(() => {
-                bitcoinCurrentSlide = (bitcoinCurrentSlide + 1) % bitcoinTotalSlides;
-                updateBitcoinSlider();
-            }, 6000);
-        }
-
-        bitcoinRects.forEach((rect, index) => {
-            rect.addEventListener('click', () => {
-                bitcoinCurrentSlide = index;
-                updateBitcoinSlider();
-                startBitcoinAutoSlide();
-            });
-        });
-
-        bitcoinLeftArrow.addEventListener('click', () => {
-            bitcoinCurrentSlide = (bitcoinCurrentSlide - 1 + bitcoinTotalSlides) % bitcoinTotalSlides;
-            updateBitcoinSlider();
-            startBitcoinAutoSlide();
-        });
-
-        bitcoinRightArrow.addEventListener('click', () => {
-            bitcoinCurrentSlide = (bitcoinCurrentSlide + 1) % bitcoinTotalSlides;
-            updateBitcoinSlider();
-            startBitcoinAutoSlide();
-        });
-
-        bitcoinSlides.classList.add('loaded');
-        startBitcoinAutoSlide();
-
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navMenu = document.querySelector('.nav-menu');
-        menuToggle.addEventListener('click', () => navMenu.classList.toggle('active'));
-
-        const forms = document.querySelectorAll('.contact-form');
-        forms.forEach(form => {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const email = form.querySelector('[type="email"]')?.value;
-                if (email && !email.includes('@')) {
-                    alert('Please enter a valid email.');
-                    return;
-                }
-                alert('Request submitted successfully!');
-                form.reset();
-                const modal = document.querySelector('#contact-modal');
-                if (form.closest('#contact-modal')) {
-                    modal.classList.remove('active');
-                }
-            });
-        });
-
-    
-
-        closeButton.addEventListener('click', () => {
-            modal.classList.remove('active');
-        });
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
-                modal.classList.remove('active');
-            }
-        });
-
-        const backToTop = document.querySelector('.back-to-top');
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        const navItems = document.querySelectorAll('.nav-item');
-        const navbarBrand = document.querySelector('.navbar-brand');
-        navItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-                navItems.forEach(nav => nav.classList.remove('active'));
-                item.classList.add('active');
-                const text = item.textContent.toLowerCase();
-                let targetSection;
-                if (text === 'home') {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else if (text === 'services') {
-                    targetSection = document.querySelector('.our-services');
-                } else if (text === 'about') {
-                    targetSection = document.querySelector('.about');
-                }
-                if (targetSection) {
-                    window.scrollTo({
-                        top: targetSection.offsetTop - 50,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        navbarBrand.addEventListener('click', (e) => {
-            e.preventDefault();
-            navItems.forEach(nav => nav.classList.remove('active'));
-            navItems[0].classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    </script>
-        
+ <!-- 1) scroll & slider -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const isMobile = () => window.innerWidth <= 768;
-  document.querySelectorAll('.cta-button, .cta-slider-button')
-    .forEach(btn => btn.addEventListener('click', e => {
-      if (isMobile()) {
-        e.preventDefault();
-        document.getElementById('contact')
-                .scrollIntoView({ behavior: 'smooth' });
-      }
-    }));
+  console.log('1️⃣ scroll/slider init');
+  // ─── paste here your banner-hide, parallax, auto-slide,
+  //     nav-dot click handlers, back-to-top code, etc.
+  // ─── make sure there is NO modal or cta-button code here
 });
 </script>
-
-    <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const backToTop = document.querySelector('.back-to-top');
-    if (!backToTop) return;
-    ['click','touchstart'].forEach(evt =>
-      backToTop.addEventListener(evt, e => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      })
-    );
-  });
-</script>
-
-    <script>
+<!-- 2) modal & CTA -->
+<script>
 document.addEventListener('DOMContentLoaded', () => {
-  const isMobile = () => window.innerWidth <= 768;
-  const modal    = document.getElementById('contact-modal');
-  const closeBtn = document.querySelector('.close-button');
+  console.log('2️⃣ modal/CTA init');
+  const isMobile   = () => window.innerWidth <= 768;
+  const modal      = document.getElementById('contact-modal');
+  const closeBtn   = document.querySelector('.close-button');
+  const navContact = document.querySelector('button.cta-button[aria-label="Contact Us"]');
 
-  // On desktop: Nav “Contact” button opens the modal
-  document
-    .querySelector('button.cta-button[aria-label="Contact Us"]')
-    .addEventListener('click', () => {
-      if (!isMobile()) modal.classList.add('active');
-    });
+  // desktop: open the modal
+  navContact?.addEventListener('click', () => {
+    if (!isMobile()) modal.classList.add('active');
+  });
 
-  // Close the modal
-  closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+  // always: close it
+  closeBtn?.addEventListener('click', () => modal.classList.remove('active'));
+  modal.addEventListener('click', e => {
+    if (e.target === modal) modal.classList.remove('active');
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') modal.classList.remove('active');
+  });
 
-  // On mobile: “Get Started” links scroll to #contact instead of opening modal
-  document
-    .querySelectorAll('a.cta-button[href="#contact"]')
-    .forEach(link => {
-      link.addEventListener('click', e => {
-        if (isMobile()) {
-          e.preventDefault();
-          document.getElementById('contact')
-                  .scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
+  // mobile “Get Started” links: scroll instead of open
+  document.querySelectorAll('a.cta-button[href="#contact"]')
+    .forEach(link => link.addEventListener('click', e => {
+      if (isMobile()) {
+        e.preventDefault();
+        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+      }
+    }));
 });
 </script>
 
