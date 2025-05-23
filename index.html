@@ -1633,7 +1633,7 @@ portfolio management. We specialize in:</p>
     <section class="cta-section">
         <div class="cta-content">
             <h2><span class="regular">Start Your Crypto</span> <span class="highlight">Journey</span></h2>
-            <a data-scroll-to="contact" class="cta-button">Get Started</a>
+             <a href="#contact" class="cta-button">Get Started</a>
 
         </div>
     </section>
@@ -1915,18 +1915,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
 });
 </script>
-
-    <script>
-  document.querySelectorAll('[data-scroll-to]').forEach(btn => {
-    btn.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.getElementById(btn.dataset.scrollTo);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  });
-</script>
-
 
 </body></html>
