@@ -1837,28 +1837,15 @@ portfolio management. We specialize in:</p>
             });
         });
 
-    <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const isMobile = () => window.innerWidth <= 768;
-    const ctaButtons = document.querySelectorAll('.cta-button, .cta-slider-button');
-    const modal      = document.getElementById('contact-modal');
-    const contactSec = document.getElementById('contact');
+        const ctaButtons = document.querySelectorAll('.cta-button');
+        const modal = document.querySelector('#contact-modal');
+        const closeButton = document.querySelector('.close-button');
 
-    ctaButtons.forEach(btn => {
-      btn.addEventListener('click', e => {
-        if (isMobile()) {
-          // Mobile: hijack click, close any modal, scroll to inline section
-          e.preventDefault();
-          modal.classList.remove('active');
-          contactSec.scrollIntoView({ behavior: 'smooth' });
-        } else {
-          // Desktop: open the popup
-          modal.classList.add('active');
-        }
-      });
-    });
-  });
-</script>
+        ctaButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                modal.classList.add('active');
+            });
+        });
 
         closeButton.addEventListener('click', () => {
             modal.classList.remove('active');
