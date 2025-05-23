@@ -1900,6 +1900,19 @@ portfolio management. We specialize in:</p>
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const isMobile = () => window.innerWidth <= 768;
+  document.querySelectorAll('.cta-button, .cta-slider-button')
+    .forEach(btn => btn.addEventListener('click', e => {
+      if (isMobile()) {
+        e.preventDefault();
+        document.getElementById('contact')
+                .scrollIntoView({ behavior: 'smooth' });
+      }
+    }));
+});
+</script>
 
 
 </body></html>
