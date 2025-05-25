@@ -1905,9 +1905,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
- // Handle all CTA buttons
+// Handle all CTA buttons
 document.querySelectorAll('.cta-button, .cta-slider-button').forEach(btn => {
     btn.addEventListener('click', (e) => {
+        // Check if the button has a target="_blank" attribute
+        if (btn.getAttribute('target') === '_blank') {
+            // Let the link work normally
+            return;
+        }
+        
         e.preventDefault();
         
         // Get the contact modal and contact section
