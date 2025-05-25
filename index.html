@@ -1735,6 +1735,7 @@ portfolio management. We specialize in:</p>
     <button class="back-to-top">↑</button>
 
 <script>
+    <script>
 // Main Site Functionality
 document.addEventListener('DOMContentLoaded', () => {
     const banner = document.querySelector('.banner');
@@ -1846,6 +1847,51 @@ document.addEventListener('DOMContentLoaded', () => {
     slidesContainer.classList.add('loaded');
     startAutoSlide();
 
+    // Bitcoin Smart Choice Slider
+    const btcSliderContainer = document.querySelector('.bitcoin-smart-choice .slides');
+    const btcDots = document.querySelectorAll('.bitcoin-smart-choice .nav-rect');
+    const btcLeftArrow = document.querySelector('.bitcoin-smart-choice .nav-left');
+    const btcRightArrow = document.querySelector('.bitcoin-smart-choice .nav-right');
+    let btcCurrentSlide = 0;
+    const btcTotalSlides = 5;
+    let btcAutoSlideInterval;
+
+    function updateBtcSlider() {
+        btcSliderContainer.style.transform = `translateX(-${btcCurrentSlide * 20}%)`;
+        btcDots.forEach((dot, index) => dot.classList.toggle('active', index === btcCurrentSlide));
+    }
+
+    function startBtcAutoSlide() {
+        clearInterval(btcAutoSlideInterval);
+        btcAutoSlideInterval = setInterval(() => {
+            btcCurrentSlide = (btcCurrentSlide + 1) % btcTotalSlides;
+            updateBtcSlider();
+        }, 6000);
+    }
+
+    btcDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            btcCurrentSlide = index;
+            updateBtcSlider();
+            startBtcAutoSlide();
+        });
+    });
+
+    btcLeftArrow.addEventListener('click', () => {
+        btcCurrentSlide = (btcCurrentSlide - 1 + btcTotalSlides) % btcTotalSlides;
+        updateBtcSlider();
+        startBtcAutoSlide();
+    });
+
+    btcRightArrow.addEventListener('click', () => {
+        btcCurrentSlide = (btcCurrentSlide + 1) % btcTotalSlides;
+        updateBtcSlider();
+        startBtcAutoSlide();
+    });
+
+    btcSliderContainer.classList.add('loaded');
+    startBtcAutoSlide();
+
     // Back to Top Button
     const backToTop = document.querySelector('.back-to-top');
     backToTop.addEventListener('click', () => {
@@ -1853,66 +1899,67 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
-    
-    <script>
+
+<script>
 document.addEventListener('DOMContentLoaded', () => {
     // Mobile Detection Utility
     const isMobile = () => window.innerWidth <= 768;
 
-document.querySelectorAll('.contact-form').forEach(form => {
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const submitBtn = form.querySelector('.submit-button');
-        submitBtn.textContent = 'Submitting...';
-        submitBtn.disabled = true;
+    document.querySelectorAll('.contact-form').forEach(form => {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = form.querySelector('.submit-button');
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
 
-        try {
-            const response = await fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                body: new FormData(form)
-            });
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: new FormData(form)
+                });
+                
+                if (response.ok) {
+                    window.location.href = 'thanks.html';
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('There was an error submitting the form. Please try again.');
+                submitBtn.textContent = 'Submit Request';
+                submitBtn.disabled = false;
+            }
+        });
+    });
+
+    // Handle all CTA buttons
+    document.querySelectorAll('.cta-button, .cta-slider-button').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            // Check if the button has a target="_blank" attribute
+            if (btn.getAttribute('target') === '_blank') {
+                // Let the link work normally
+                return;
+            }
             
-            if (response.ok) {
-                window.location.href = 'thanks.html';
+            e.preventDefault();
+            
+            // Get the contact modal and contact section
+            const modal = document.querySelector('#contact-modal');
+            const contactSection = document.getElementById('contact');
+            
+            if (isMobile()) {
+                // On mobile, scroll to contact form
+                if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
             } else {
-                throw new Error('Form submission failed');
+                // On desktop, show the modal
+                if (modal) {
+                    modal.classList.add('active');
+                }
             }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('There was an error submitting the form. Please try again.');
-            submitBtn.textContent = 'Submit Request';
-            submitBtn.disabled = false;
-        }
+        });
     });
-});
-// Handle all CTA buttons
-document.querySelectorAll('.cta-button, .cta-slider-button').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        // Check if the button has a target="_blank" attribute
-        if (btn.getAttribute('target') === '_blank') {
-            // Let the link work normally
-            return;
-        }
-        
-        e.preventDefault();
-        
-        // Get the contact modal and contact section
-        const modal = document.querySelector('#contact-modal');
-        const contactSection = document.getElementById('contact');
-        
-        if (isMobile()) {
-            // On mobile, scroll to contact form
-            if (contactSection) {
-                contactSection.scrollIntoView({ behavior: 'smooth' });
-            }
-        } else {
-            // On desktop, show the modal
-            if (modal) {
-                modal.classList.add('active');
-            }
-        }
-    });
-});
 
     // Modal Functionality
     const modal = document.querySelector('#contact-modal');
@@ -1951,51 +1998,6 @@ document.querySelectorAll('.cta-button, .cta-slider-button').forEach(btn => {
     }
 });
 </script>
-    // Bitcoin Smart Choice Slider
-document.addEventListener('DOMContentLoaded', () => {
-    const btcSliderContainer = document.querySelector('.bitcoin-smart-choice .slides');
-    const btcDots = document.querySelectorAll('.bitcoin-smart-choice .nav-rect');
-    const btcLeftArrow = document.querySelector('.bitcoin-smart-choice .nav-left');
-    const btcRightArrow = document.querySelector('.bitcoin-smart-choice .nav-right');
-    let btcCurrentSlide = 0;
-    const btcTotalSlides = 5; // Total number of slides in the Bitcoin Smart Choice section
-    let btcAutoSlideInterval;
 
-    function updateBtcSlider() {
-        btcSliderContainer.style.transform = `translateX(-${btcCurrentSlide * 20}%)`; // 20% because width is 500%
-        btcDots.forEach((dot, index) => dot.classList.toggle('active', index === btcCurrentSlide));
-    }
-
-    function startBtcAutoSlide() {
-        clearInterval(btcAutoSlideInterval);
-        btcAutoSlideInterval = setInterval(() => {
-            btcCurrentSlide = (btcCurrentSlide + 1) % btcTotalSlides;
-            updateBtcSlider();
-        }, 6000);
-    }
-
-    btcDots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            btcCurrentSlide = index;
-            updateBtcSlider();
-            startBtcAutoSlide();
-        });
-    });
-
-    btcLeftArrow.addEventListener('click', () => {
-        btcCurrentSlide = (btcCurrentSlide - 1 + btcTotalSlides) % btcTotalSlides;
-        updateBtcSlider();
-        startBtcAutoSlide();
-    });
-
-    btcRightArrow.addEventListener('click', () => {
-        btcCurrentSlide = (btcCurrentSlide + 1) % btcTotalSlides;
-        updateBtcSlider();
-        startBtcAutoSlide();
-    });
-
-    btcSliderContainer.classList.add('loaded');
-    startBtcAutoSlide();
-});
 </body>
 </html>
