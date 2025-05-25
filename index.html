@@ -1386,36 +1386,29 @@
                 </div>
                 
      <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
-    <!-- Your Access Key -->
+    <!-- Access Key -->
     <input type="hidden" name="access_key" value="ed932f18-9c1d-4489-960f-ee89b8927f15">
-    
-    <!-- Form Metadata -->
-    <input type="hidden" name="from_name" value="HODL ₿TC Website">
-    <input type="hidden" name="redirect" value="thanks.html">
-    
-    <!-- Anti-spam -->
-    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
     
     <!-- Form Fields -->
     <div class="form-group">
-        <label for="name">First Name:</label>
-        <input type="text" id="name" name="name" required>
+        <label>First Name:</label>
+        <input type="text" name="name" required>
     </div>
     <div class="form-group">
-        <label for="lastname">Last Name:</label>
-        <input type="text" id="lastname" name="lastname" required>
+        <label>Last Name:</label>
+        <input type="text" name="lastname" required>
     </div>
     <div class="form-group">
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" name="email" required>
+        <label>Email Address:</label>
+        <input type="email" name="email" required>
     </div>
     <div class="form-group">
-        <label for="phone">Phone Number:</label>
-        <input type="tel" id="phone" name="phone" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone" required>
     </div>
     <div class="form-group">
-        <label for="message">Enquiry:</label>
-        <textarea id="message" name="message" required></textarea>
+        <label>Enquiry:</label>
+        <textarea name="message" required></textarea>
     </div>
     
     <button type="submit" class="submit-button">Submit Request</button>
@@ -1689,37 +1682,30 @@ portfolio management. We specialize in:</p>
                     <a href="https://instagram.com/" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
-     <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
-    <!-- Your Access Key -->
+    <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+    <!-- Access Key -->
     <input type="hidden" name="access_key" value="ed932f18-9c1d-4489-960f-ee89b8927f15">
-    
-    <!-- Form Metadata -->
-    <input type="hidden" name="from_name" value="HODL ₿TC Website">
-    <input type="hidden" name="redirect" value="thanks.html">
-    
-    <!-- Anti-spam -->
-    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
     
     <!-- Form Fields -->
     <div class="form-group">
-        <label for="name">First Name:</label>
-        <input type="text" id="name" name="name" required>
+        <label>First Name:</label>
+        <input type="text" name="name" required>
     </div>
     <div class="form-group">
-        <label for="lastname">Last Name:</label>
-        <input type="text" id="lastname" name="lastname" required>
+        <label>Last Name:</label>
+        <input type="text" name="lastname" required>
     </div>
     <div class="form-group">
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" name="email" required>
+        <label>Email Address:</label>
+        <input type="email" name="email" required>
     </div>
     <div class="form-group">
-        <label for="phone">Phone Number:</label>
-        <input type="tel" id="phone" name="phone" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone" required>
     </div>
     <div class="form-group">
-        <label for="message">Enquiry:</label>
-        <textarea id="message" name="message" required></textarea>
+        <label>Enquiry:</label>
+        <textarea name="message" required></textarea>
     </div>
     
     <button type="submit" class="submit-button">Submit Request</button>
@@ -1873,33 +1859,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mobile Detection Utility
     const isMobile = () => window.innerWidth <= 768;
 
-// Contact Form Setup
 document.querySelectorAll('.contact-form').forEach(form => {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
-        // Show loading state
         const submitBtn = form.querySelector('.submit-button');
         submitBtn.textContent = 'Submitting...';
         submitBtn.disabled = true;
-        
+
         try {
-            const formData = new FormData(form);
             const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
-                body: formData
+                body: new FormData(form)
             });
             
-            const result = await response.json();
-            
-            if (result.success) {
-                // Success - redirect to thanks page
+            if (response.ok) {
                 window.location.href = 'thanks.html';
             } else {
-                throw new Error(result.message || 'Form submission failed');
+                throw new Error('Form submission failed');
             }
         } catch (error) {
-            console.error('Form submission error:', error);
+            console.error('Error:', error);
             alert('There was an error submitting the form. Please try again.');
             submitBtn.textContent = 'Submit Request';
             submitBtn.disabled = false;
