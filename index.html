@@ -1951,5 +1951,51 @@ document.querySelectorAll('.cta-button, .cta-slider-button').forEach(btn => {
     }
 });
 </script>
+    // Bitcoin Smart Choice Slider
+document.addEventListener('DOMContentLoaded', () => {
+    const btcSliderContainer = document.querySelector('.bitcoin-smart-choice .slides');
+    const btcDots = document.querySelectorAll('.bitcoin-smart-choice .nav-rect');
+    const btcLeftArrow = document.querySelector('.bitcoin-smart-choice .nav-left');
+    const btcRightArrow = document.querySelector('.bitcoin-smart-choice .nav-right');
+    let btcCurrentSlide = 0;
+    const btcTotalSlides = 5; // Total number of slides in the Bitcoin Smart Choice section
+    let btcAutoSlideInterval;
+
+    function updateBtcSlider() {
+        btcSliderContainer.style.transform = `translateX(-${btcCurrentSlide * 20}%)`; // 20% because width is 500%
+        btcDots.forEach((dot, index) => dot.classList.toggle('active', index === btcCurrentSlide));
+    }
+
+    function startBtcAutoSlide() {
+        clearInterval(btcAutoSlideInterval);
+        btcAutoSlideInterval = setInterval(() => {
+            btcCurrentSlide = (btcCurrentSlide + 1) % btcTotalSlides;
+            updateBtcSlider();
+        }, 6000);
+    }
+
+    btcDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            btcCurrentSlide = index;
+            updateBtcSlider();
+            startBtcAutoSlide();
+        });
+    });
+
+    btcLeftArrow.addEventListener('click', () => {
+        btcCurrentSlide = (btcCurrentSlide - 1 + btcTotalSlides) % btcTotalSlides;
+        updateBtcSlider();
+        startBtcAutoSlide();
+    });
+
+    btcRightArrow.addEventListener('click', () => {
+        btcCurrentSlide = (btcCurrentSlide + 1) % btcTotalSlides;
+        updateBtcSlider();
+        startBtcAutoSlide();
+    });
+
+    btcSliderContainer.classList.add('loaded');
+    startBtcAutoSlide();
+});
 </body>
 </html>
