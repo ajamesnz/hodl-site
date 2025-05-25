@@ -1385,7 +1385,7 @@
 
                 </div>
                 
-           <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+        <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
     <!-- Your Access Key -->
     <input type="hidden" name="access_key" value="ed932f18-9c1d-4489-960f-ee89b8927f15">
     
@@ -1395,15 +1395,20 @@
     <!-- Form Metadata -->
     <input type="hidden" name="subject" value="New Contact Request - HODL ₿TC">
     <input type="hidden" name="from_name" value="HODL ₿TC Website">
+    <input type="hidden" name="redirect" value="thanks.html">
     
     <!-- Dubai Timezone -->
     <input type="hidden" name="timezone" value="Asia/Dubai">
-    <input type="hidden" name="submitted_at" value="2025-05-26 00:00:41">
+    <input type="hidden" name="submitted_at" value="2025-05-26 00:14:12">
     
     <!-- Form Fields -->
     <div class="form-group">
         <label for="first-name">First Name:</label>
-        <input type="text" id="first-name" name="name" required>
+        <input type="text" id="first-name" name="first_name" required>
+    </div>
+    <div class="form-group">
+        <label for="last-name">Last Name:</label>
+        <input type="text" id="last-name" name="last_name" required>
     </div>
     <div class="form-group">
         <label for="email">Email Address:</label>
@@ -1689,7 +1694,7 @@ portfolio management. We specialize in:</p>
                     <a href="https://instagram.com/" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
-        <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+     <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
     <!-- Your Access Key -->
     <input type="hidden" name="access_key" value="ed932f18-9c1d-4489-960f-ee89b8927f15">
     
@@ -1699,15 +1704,20 @@ portfolio management. We specialize in:</p>
     <!-- Form Metadata -->
     <input type="hidden" name="subject" value="New Contact Request - HODL ₿TC">
     <input type="hidden" name="from_name" value="HODL ₿TC Website">
+    <input type="hidden" name="redirect" value="thanks.html">
     
     <!-- Dubai Timezone -->
     <input type="hidden" name="timezone" value="Asia/Dubai">
-    <input type="hidden" name="submitted_at" value="2025-05-26 00:00:41">
+    <input type="hidden" name="submitted_at" value="2025-05-26 00:14:12">
     
     <!-- Form Fields -->
     <div class="form-group">
         <label for="first-name">First Name:</label>
-        <input type="text" id="first-name" name="name" required>
+        <input type="text" id="first-name" name="first_name" required>
+    </div>
+    <div class="form-group">
+        <label for="last-name">Last Name:</label>
+        <input type="text" id="last-name" name="last_name" required>
     </div>
     <div class="form-group">
         <label for="email">Email Address:</label>
@@ -1908,27 +1918,28 @@ document.querySelectorAll('.contact-form').forEach(form => {
             console.log('Form submission result:', result);
             
             if (result.success) {
-                alert('Thank you! Your message has been sent.');
-                form.reset();
-                
-                // Close modal if form is in modal
+                // Close modal if in modal
                 const modal = document.querySelector('#contact-modal');
                 if (form.closest('#contact-modal')) {
                     modal.classList.remove('active');
                 }
+                
+                // Redirect to thanks page
+                window.location.href = 'thanks.html';
             } else {
                 throw new Error(result.message || 'Form submission failed');
             }
         } catch (error) {
             console.error('Form submission error:', error);
             alert('There was an error submitting the form. Please try again.');
-        } finally {
+            
             // Reset button state
             submitBtn.disabled = false;
             submitBtn.textContent = 'Submit Request';
         }
     });
 });
+    
 // Handle all CTA buttons
 document.querySelectorAll('.cta-button, .cta-slider-button').forEach(btn => {
     btn.addEventListener('click', (e) => {
