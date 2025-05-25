@@ -1905,23 +1905,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Mobile CTA Button Behavior
-    document.querySelectorAll('.cta-button, .cta-slider-button')
-        .forEach(btn => {
-            btn.addEventListener('click', e => {
-                if (isMobile()) {
-                    e.preventDefault();
-                    document.getElementById('contact')
-                            .scrollIntoView({ behavior: 'smooth' });
-                } else {
-                    // On desktop, show the modal
-                    const modal = document.querySelector('#contact-modal');
-                    if (modal && !e.target.href) { // Only show modal if button doesn't have href
-                        modal.classList.add('active');
-                    }
-                }
-            });
-        });
+ // Handle all CTA buttons
+document.querySelectorAll('.cta-button, .cta-slider-button').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Get the contact modal and contact section
+        const modal = document.querySelector('#contact-modal');
+        const contactSection = document.getElementById('contact');
+        
+        if (isMobile()) {
+            // On mobile, scroll to contact form
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        } else {
+            // On desktop, show the modal
+            if (modal) {
+                modal.classList.add('active');
+            }
+        }
+    });
+});
 
     // Modal Functionality
     const modal = document.querySelector('#contact-modal');
