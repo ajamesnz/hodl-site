@@ -1951,5 +1951,52 @@ document.querySelectorAll('.cta-button, .cta-slider-button').forEach(btn => {
     }
 });
 </script>
+    document.addEventListener('DOMContentLoaded', () => {
+    // Initialize variables
+    let currentSlide = 0;
+    const slides = document.querySelector('.slides');
+    const totalSlides = document.querySelectorAll('.slide').length;
+    const dots = document.querySelectorAll('.nav-dot');
+    const navLeft = document.querySelector('.nav-left');
+    const navRight = document.querySelector('.nav-right');
+
+    // Show initial slide
+    slides.classList.add('loaded');
+
+    // Navigation arrows
+    navLeft.addEventListener('click', () => {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateSlider();
+    });
+
+    navRight.addEventListener('click', () => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateSlider();
+    });
+
+    // Navigation dots
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentSlide = index;
+            updateSlider();
+        });
+    });
+
+    function updateSlider() {
+        // Update slides position
+        slides.style.transform = `translateX(-${currentSlide * 33.33}%)`;
+        
+        // Update active dot
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlide);
+        });
+    }
+
+    // Auto-advance slides every 5 seconds
+    setInterval(() => {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateSlider();
+    }, 5000);
+});
 </body>
 </html>
