@@ -1382,24 +1382,23 @@
 
                 </div>
                 
-                <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+             <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
     <!-- Your Access Key -->
     <input type="hidden" name="access_key" value="ed932f18-9c1d-4489-960f-ee89b8927f15">
     
-    <!-- Debug Mode -->
+    <!-- Debug and Response Tracking -->
     <input type="hidden" name="debug" value="1">
     
     <!-- Form Metadata -->
     <input type="hidden" name="subject" value="New Contact Request - HODL ₿TC">
     <input type="hidden" name="from_name" value="HODL ₿TC Website">
     <input type="hidden" name="redirect" value="thanks.html">
+    
+    <!-- Dubai Timezone -->
     <input type="hidden" name="timezone" value="Asia/Dubai">
     
-    <!-- Submission Timestamp -->
-    <input type="hidden" name="submitted_at" value="2025-05-25 23:24:57">
-    
-    <!-- Anti-spam -->
-    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+    <!-- Current Dubai Time (UTC+4): 2025-05-25 23:43:26 -->
+    <input type="hidden" name="submitted_at" value="2025-05-25 23:43:26">
     
     <!-- Form Fields -->
     <div class="form-group">
@@ -1694,24 +1693,23 @@ portfolio management. We specialize in:</p>
                     <a href="https://instagram.com/" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
-           <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+         <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
     <!-- Your Access Key -->
     <input type="hidden" name="access_key" value="ed932f18-9c1d-4489-960f-ee89b8927f15">
     
-    <!-- Debug Mode -->
+    <!-- Debug and Response Tracking -->
     <input type="hidden" name="debug" value="1">
     
     <!-- Form Metadata -->
     <input type="hidden" name="subject" value="New Contact Request - HODL ₿TC">
     <input type="hidden" name="from_name" value="HODL ₿TC Website">
     <input type="hidden" name="redirect" value="thanks.html">
+    
+    <!-- Dubai Timezone -->
     <input type="hidden" name="timezone" value="Asia/Dubai">
     
-    <!-- Submission Timestamp -->
-    <input type="hidden" name="submitted_at" value="2025-05-25 23:24:57">
-    
-    <!-- Anti-spam -->
-    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+    <!-- Current Dubai Time (UTC+4): 2025-05-25 23:43:26 -->
+    <input type="hidden" name="submitted_at" value="2025-05-25 23:43:26">
     
     <!-- Form Fields -->
     <div class="form-group">
@@ -1898,9 +1896,11 @@ forms.forEach(form => {
         submitBtn.disabled = true;
         
         try {
-            // Update timestamp before submission
-            const dubaiTime = new Date().toLocaleString('en-US', { 
-                timeZone: 'Asia/Dubai',
+            // Convert UTC time to Dubai time (UTC+4)
+            const utcDate = new Date('2025-05-25 19:49:36');
+            utcDate.setHours(utcDate.getHours() + 4); // Add 4 hours for Dubai time
+            
+            const dubaiTime = utcDate.toLocaleString('en-US', {
                 year: 'numeric',
                 month: '2-digit',
                 day: '2-digit',
@@ -1954,7 +1954,6 @@ forms.forEach(form => {
         }
     });
 });
-
 // Handle all CTA buttons
 document.querySelectorAll('.cta-button, .cta-slider-button').forEach(btn => {
     btn.addEventListener('click', (e) => {
