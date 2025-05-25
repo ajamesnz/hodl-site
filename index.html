@@ -1735,7 +1735,6 @@ portfolio management. We specialize in:</p>
     <button class="back-to-top">↑</button>
 
 <script>
-    <script>
 // Main Site Functionality
 document.addEventListener('DOMContentLoaded', () => {
     const banner = document.querySelector('.banner');
@@ -1746,20 +1745,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Banner and Navigation
     window.addEventListener('scroll', () => {
         const scrollPosition = window.scrollY;
-        const isBannerHidden = scrollPosition > 0;
-        banner.classList.toggle('hidden', isBannerHidden);
-        navbarContainer.style.top = isBannerHidden ? '0' : 'var(--banner-height)';
+        banner.classList.toggle('hidden', scrollPosition > 0);
+        navbarContainer.style.top = scrollPosition > 0 ? '0' : 'var(--banner-height)';
         navbarContainer.classList.toggle('solid', scrollPosition > 50);
-        sliderContainer.style.backgroundPositionY = `${scrollPosition * 0.3}px`;
 
-        parallaxSections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            if (scrollPosition > sectionTop - window.innerHeight && scrollPosition < sectionTop + sectionHeight) {
-                const offset = (scrollPosition - sectionTop) * 0.2;
-                section.style.backgroundPositionY = `${offset}px`;
-            }
-        });
+        // Parallax effect
+        if (window.innerWidth > 768) { // Only apply parallax on desktop
+            sliderContainer.style.backgroundPositionY = `${scrollPosition * 0.3}px`;
+            parallaxSections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                if (scrollPosition > sectionTop - window.innerHeight && scrollPosition < sectionTop + sectionHeight) {
+                    const offset = (scrollPosition - sectionTop) * 0.2;
+                    section.style.backgroundPositionY = `${offset}px`;
+                }
+            });
+        }
 
         // Back to top button visibility
         const backToTop = document.querySelector('.back-to-top');
@@ -1802,95 +1803,103 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Slider Functionality
-    const slidesContainer = document.querySelector('.slider-container .slides');
-    const dots = document.querySelectorAll('.navigation .nav-dot');
-    const leftArrow = document.querySelector('.nav-left');
-    const rightArrow = document.querySelector('.nav-right');
-    let currentSlide = 0;
-    const totalSlides = 3;
-    let autoSlideInterval;
+    // Main Hero Slider
+    function initMainSlider() {
+        const slidesContainer = document.querySelector('.slider-container .slides');
+        const dots = document.querySelectorAll('.slider-container .navigation .nav-dot');
+        const leftArrow = document.querySelector('.slider-container .nav-left');
+        const rightArrow = document.querySelector('.slider-container .nav-right');
+        let currentSlide = 0;
+        const totalSlides = 3;
+        let autoSlideInterval;
 
-    function updateSlider() {
-        slidesContainer.style.transform = `translateX(-${currentSlide * 33.33}%)`;
-        dots.forEach((dot, index) => dot.classList.toggle('active', index === currentSlide));
-    }
+        function updateMainSlider() {
+            slidesContainer.style.transform = `translateX(-${currentSlide * 33.33}%)`;
+            dots.forEach((dot, index) => dot.classList.toggle('active', index === currentSlide));
+        }
 
-    function startAutoSlide() {
-        clearInterval(autoSlideInterval);
-        autoSlideInterval = setInterval(() => {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            updateSlider();
-        }, 6000);
-    }
+        function startMainAutoSlide() {
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = setInterval(() => {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateMainSlider();
+            }, 6000);
+        }
 
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            currentSlide = index;
-            updateSlider();
-            startAutoSlide();
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                updateMainSlider();
+                startMainAutoSlide();
+            });
         });
-    });
 
-    leftArrow.addEventListener('click', () => {
-        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-        updateSlider();
-        startAutoSlide();
-    });
+        leftArrow.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateMainSlider();
+            startMainAutoSlide();
+        });
 
-    rightArrow.addEventListener('click', () => {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        updateSlider();
-        startAutoSlide();
-    });
+        rightArrow.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateMainSlider();
+            startMainAutoSlide();
+        });
 
-    slidesContainer.classList.add('loaded');
-    startAutoSlide();
+        slidesContainer.classList.add('loaded');
+        startMainAutoSlide();
+    }
 
     // Bitcoin Smart Choice Slider
-    const btcSliderContainer = document.querySelector('.bitcoin-smart-choice .slides');
-    const btcDots = document.querySelectorAll('.bitcoin-smart-choice .nav-rect');
-    const btcLeftArrow = document.querySelector('.bitcoin-smart-choice .nav-left');
-    const btcRightArrow = document.querySelector('.bitcoin-smart-choice .nav-right');
-    let btcCurrentSlide = 0;
-    const btcTotalSlides = 5;
-    let btcAutoSlideInterval;
+    function initBitcoinSlider() {
+        const btcSliderContainer = document.querySelector('.bitcoin-smart-choice .slides');
+        const btcDots = document.querySelectorAll('.bitcoin-smart-choice .nav-rect');
+        const btcLeftArrow = document.querySelector('.bitcoin-smart-choice .nav-left');
+        const btcRightArrow = document.querySelector('.bitcoin-smart-choice .nav-right');
+        let btcCurrentSlide = 0;
+        const btcTotalSlides = 5;
+        let btcAutoSlideInterval;
 
-    function updateBtcSlider() {
-        btcSliderContainer.style.transform = `translateX(-${btcCurrentSlide * 20}%)`;
-        btcDots.forEach((dot, index) => dot.classList.toggle('active', index === btcCurrentSlide));
-    }
+        function updateBtcSlider() {
+            btcSliderContainer.style.transform = `translateX(-${btcCurrentSlide * 20}%)`;
+            btcDots.forEach((dot, index) => dot.classList.toggle('active', index === btcCurrentSlide));
+        }
 
-    function startBtcAutoSlide() {
-        clearInterval(btcAutoSlideInterval);
-        btcAutoSlideInterval = setInterval(() => {
-            btcCurrentSlide = (btcCurrentSlide + 1) % btcTotalSlides;
-            updateBtcSlider();
-        }, 6000);
-    }
+        function startBtcAutoSlide() {
+            clearInterval(btcAutoSlideInterval);
+            btcAutoSlideInterval = setInterval(() => {
+                btcCurrentSlide = (btcCurrentSlide + 1) % btcTotalSlides;
+                updateBtcSlider();
+            }, 6000);
+        }
 
-    btcDots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            btcCurrentSlide = index;
+        btcDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                btcCurrentSlide = index;
+                updateBtcSlider();
+                startBtcAutoSlide();
+            });
+        });
+
+        btcLeftArrow.addEventListener('click', () => {
+            btcCurrentSlide = (btcCurrentSlide - 1 + btcTotalSlides) % btcTotalSlides;
             updateBtcSlider();
             startBtcAutoSlide();
         });
-    });
 
-    btcLeftArrow.addEventListener('click', () => {
-        btcCurrentSlide = (btcCurrentSlide - 1 + btcTotalSlides) % btcTotalSlides;
-        updateBtcSlider();
+        btcRightArrow.addEventListener('click', () => {
+            btcCurrentSlide = (btcCurrentSlide + 1) % btcTotalSlides;
+            updateBtcSlider();
+            startBtcAutoSlide();
+        });
+
+        btcSliderContainer.classList.add('loaded');
         startBtcAutoSlide();
-    });
+    }
 
-    btcRightArrow.addEventListener('click', () => {
-        btcCurrentSlide = (btcCurrentSlide + 1) % btcTotalSlides;
-        updateBtcSlider();
-        startBtcAutoSlide();
-    });
-
-    btcSliderContainer.classList.add('loaded');
-    startBtcAutoSlide();
+    // Initialize both sliders
+    initMainSlider();
+    initBitcoinSlider();
 
     // Back to Top Button
     const backToTop = document.querySelector('.back-to-top');
@@ -1900,11 +1909,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+<!-- Form and Modal Script -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    // Mobile Detection Utility
     const isMobile = () => window.innerWidth <= 768;
 
+    // Handle Forms
     document.querySelectorAll('.contact-form').forEach(form => {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -1932,28 +1942,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Handle all CTA buttons
+    // Handle CTA Buttons
     document.querySelectorAll('.cta-button, .cta-slider-button').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            // Check if the button has a target="_blank" attribute
-            if (btn.getAttribute('target') === '_blank') {
-                // Let the link work normally
-                return;
-            }
+            if (btn.getAttribute('target') === '_blank') return;
             
             e.preventDefault();
             
-            // Get the contact modal and contact section
             const modal = document.querySelector('#contact-modal');
             const contactSection = document.getElementById('contact');
             
             if (isMobile()) {
-                // On mobile, scroll to contact form
                 if (contactSection) {
                     contactSection.scrollIntoView({ behavior: 'smooth' });
                 }
             } else {
-                // On desktop, show the modal
                 if (modal) {
                     modal.classList.add('active');
                 }
@@ -1972,14 +1975,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (modal) {
-        // Close on outside click
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 modal.classList.remove('active');
             }
         });
 
-        // Close on Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && modal.classList.contains('active')) {
                 modal.classList.remove('active');
@@ -1998,6 +1999,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 </script>
-
 </body>
 </html>
