@@ -2018,5 +2018,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 </script>
+
+    <script>
+// Replace these selectors if your IDs/classes are different
+document.addEventListener("DOMContentLoaded", function() {
+  // Adjust these to match your actual selectors if needed:
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navMenu = document.querySelector('.nav-menu');
+  const navLinks = navMenu.querySelectorAll('a');
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      // If your menu uses a class toggle, remove the open/active class here:
+      navMenu.classList.remove('open');
+      menuToggle.classList.remove('active');
+      // If you use inline styles for visibility, you can set them here instead
+      // navMenu.style.display = 'none';
+    });
+  });
+});
+</script>
 </body>
 </html>
