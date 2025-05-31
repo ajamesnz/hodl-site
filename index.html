@@ -2019,23 +2019,28 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-    <script>
-// Replace these selectors if your IDs/classes are different
+<script>
 document.addEventListener("DOMContentLoaded", function() {
-  // Adjust these to match your actual selectors if needed:
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navMenu = document.querySelector('.nav-menu');
-  const navLinks = navMenu.querySelectorAll('a');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const navLinks = navMenu.querySelectorAll('a');
 
-  navLinks.forEach(link => {
-    link.addEventListener('click', function() {
-      // If your menu uses a class toggle, remove the open/active class here:
-      navMenu.classList.remove('open');
-      menuToggle.classList.remove('active');
-      // If you use inline styles for visibility, you can set them here instead
-      // navMenu.style.display = 'none';
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            // Remove 'active' class instead of 'open'
+            navMenu.classList.remove('active');
+            menuToggle.classList.remove('active');
+        });
     });
-  });
+
+    // Also handle the CTA button in the menu
+    const ctaButton = navMenu.querySelector('.cta-button');
+    if (ctaButton) {
+        ctaButton.addEventListener('click', function() {
+            navMenu.classList.remove('active');
+            menuToggle.classList.remove('active');
+        });
+    }
 });
 </script>
 </body>
