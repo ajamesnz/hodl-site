@@ -961,51 +961,17 @@
             outline-offset: 2px;
         }
 
-    @media (max-width: 768px) {
+     @media (max-width: 768px) {
     :root {
-        --banner-height: auto;
-        --navbar-height: 4rem;
+        --banner-height: 4rem;
     }
-
-    /* Banner wrapper fixes */
-    .banner-wrapper {
-        position: fixed;
-        height: auto;
-        min-height: fit-content;
-        z-index: 1001;
-    }
-
-    /* Banner content fixes */
-    .banner {
-        padding: 0.8rem;
-        line-height: 1.4;
-        height: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        word-wrap: break-word;
-    }
-
-    /* Navbar positioning - keeping original styling */
     .navbar-container {
-        position: fixed;
         top: var(--banner-height);
-        width: 100%;
-        z-index: 1000;
     }
-
-    /* Content spacing */
     .slider-container {
-        margin-top: calc(var(--banner-height) + var(--navbar-height));
         height: 100vh;
+        margin-top: 120px; /* Add this line to prevent overlap with banner and navbar */
     }
-
-    /* Keep your existing mobile styles */
-    .navbar {
-        width: 90%;
-        padding: 1rem;
-    }
-}
   .contact-content {
     flex-direction: column;
     gap: 1rem;
@@ -1210,81 +1176,66 @@
             }
         }
 
-       @media (max-width: 576px) {
-    :root {
-        --banner-height: auto; /* Changed from 3.8rem to auto */
-    }
-    
-    /* Add these new styles */
-    .banner {
-        font-size: 0.9rem;
-        padding: 0.6rem;
-        line-height: 1.4;
-        height: auto;
-        word-wrap: break-word;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    /* Keep your existing styles */
-    .navbar-container {
-        top: var(--banner-height);
-    }
-    .slider-container {
-        height: 100vh;
-        padding-top: calc(var(--banner-height) + 60px); /* Add this line */
-    }
-    .navbar-brand {
-        font-size: 1.5rem;
-    }
-    .slide-content h1 {
-        font-size: 1.5rem;
-    }
-    .word-swap span {
-        font-size: 1.5rem;
-    }
-    .why-crypto h2 {
-        font-size: 1.5rem;
-    }
-    .why-crypto .subheading {
-        font-size: 1rem;
-    }
-    .dubai-based h2 {
-        font-size: 1.5rem;
-    }
-    .dubai-based p {
-        font-size: 0.9rem;
-    }
-    .about h2 {
-        font-size: 1.5rem;
-    }
-    .about .about-text h3 {
-        font-size: 1rem;
-    }
-    .bitcoin-smart-choice .slide-content .subheading {
-        font-size: 1rem;
-    }
-    .bitcoin-smart-choice .slide-content p {
-        font-size: 0.9rem;
-    }
-    .our-services .subheading {
-        font-size: 1rem;
-    }
-    .cta-section h2 {
-        font-size: 1.5rem;
-    }
-    .contact-content {
-        flex-direction: column;
-    }
-    .service-card {
-        min-height: 200px;
-    }
-    .modal-content {
-        max-width: 90%;
-        width: 95%;
-    }
-}
+        @media (max-width: 576px) {
+            :root {
+                --banner-height: 3.8rem;
+            }
+            .navbar-container {
+                top: var(--banner-height);
+            }
+            .slider-container {
+                height: 100vh;
+            }
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            .slide-content h1 {
+                font-size: 1.5rem;
+            }
+            .word-swap span {
+                font-size: 1.5rem;
+            }
+            .why-crypto h2 {
+                font-size: 1.5rem;
+            }
+            .why-crypto .subheading {
+                font-size: 1rem;
+            }
+            .dubai-based h2 {
+                font-size: 1.5rem;
+            }
+            .dubai-based p {
+                font-size: 0.9rem;
+            }
+            .about h2 {
+                font-size: 1.5rem;
+            }
+            .about .about-text h3 {
+                font-size: 1rem;
+            }
+            .bitcoin-smart-choice .slide-content .subheading {
+                font-size: 1rem;
+            }
+            .bitcoin-smart-choice .slide-content p {
+                font-size: 0.9rem;
+            }
+            .our-services .subheading {
+                font-size: 1rem;
+            }
+            .cta-section h2 {
+                font-size: 1.5rem;
+            }
+            .contact-content {
+                flex-direction: column;
+            }
+            .service-card {
+                min-height: 200px;
+            }
+            .modal-content {
+                max-width: 90%;
+                width: 95%;
+            }
+        }
 
         footer {
             background: #000000;
