@@ -963,14 +963,55 @@
 
      @media (max-width: 768px) {
     :root {
-        --banner-height: 4rem;
+        --banner-height: auto;
+        --navbar-height: 4rem;
     }
+
+    /* Body spacing fix */
+    body {
+        padding-top: var(--navbar-height);
+    }
+
+    /* Banner wrapper fixes */
+    .banner-wrapper {
+        position: fixed;
+        height: auto;
+        min-height: fit-content;
+        z-index: 1001;
+        background: #FFFFFF;
+    }
+
+    /* Banner content fixes */
+    .banner {
+        padding: 0.8rem;
+        line-height: 1.4;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        word-wrap: break-word;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Navbar positioning */
     .navbar-container {
-        top: var(--banner-height);
+        position: fixed;
+        top: auto;
+        width: 100%;
+        z-index: 1000;
+        background: rgba(51, 51, 51, 0.9);
     }
+
+    /* Content spacing */
     .slider-container {
-        height: 100vh;
-        margin-top: 120px; /* Add this line to prevent overlap with banner and navbar */
+        margin-top: var(--banner-height);
+        padding-top: var(--navbar-height);
+    }
+
+    /* Keep your existing mobile styles */
+    .navbar {
+        width: 90%;
+        padding: 1rem;
     }
   .contact-content {
     flex-direction: column;
